@@ -184,6 +184,9 @@
     </Content>
     <Content Include="PreviewImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PreviewImage2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\LocalRefactorIcon.png">
