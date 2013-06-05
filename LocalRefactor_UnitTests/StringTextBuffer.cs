@@ -24,13 +24,15 @@ namespace HotspotDevelopments.LocalRefactor
             throw new NotImplementedException();
         }
 
+        #pragma warning disable 0067    // Not used - present only to satisfy the interface ITextBuffer
         public event EventHandler<TextContentChangedEventArgs> Changed;
-
         public event EventHandler<TextContentChangedEventArgs> ChangedHighPriority;
-
         public event EventHandler<TextContentChangedEventArgs> ChangedLowPriority;
-
         public event EventHandler<TextContentChangingEventArgs> Changing;
+        public event EventHandler<ContentTypeChangedEventArgs> ContentTypeChanged;
+        public event EventHandler PostChanged;
+        public event EventHandler<SnapshotSpanEventArgs> ReadOnlyRegionsChanged;
+        #pragma warning restore 0067
 
         public bool CheckEditAccess()
         {
@@ -42,7 +44,6 @@ namespace HotspotDevelopments.LocalRefactor
             get { throw new NotImplementedException(); }
         }
 
-        public event EventHandler<ContentTypeChangedEventArgs> ContentTypeChanged;
 
         public ITextEdit CreateEdit()
         {
@@ -104,9 +105,6 @@ namespace HotspotDevelopments.LocalRefactor
             throw new NotImplementedException();
         }
 
-        public event EventHandler PostChanged;
-
-        public event EventHandler<SnapshotSpanEventArgs> ReadOnlyRegionsChanged;
 
         public ITextSnapshot Replace(Span replaceSpan, string replaceWith)
         {
@@ -497,7 +495,9 @@ namespace HotspotDevelopments.LocalRefactor
             get { return new NormalizedSnapshotSpanCollection(selectionSpan); }
         }
 
+        #pragma warning disable 0067
         public event EventHandler SelectionChanged;
+        #pragma warning restore 0067
 
         public VirtualSnapshotPoint Start
         {
