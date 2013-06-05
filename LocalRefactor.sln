@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalRefactor", "LocalRefactor\LocalRefactor.csproj", "{EB85AEC5-91BF-47FA-8918-CADFE504F407}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalRefactor_UnitTests", "LocalRefactor_UnitTests\LocalRefactor_UnitTests.csproj", "{42876AAB-8B10-4DE4-AFB4-CC9346151F88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB85AEC5-91BF-47FA-8918-CADFE504F407}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB85AEC5-91BF-47FA-8918-CADFE504F407}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB85AEC5-91BF-47FA-8918-CADFE504F407}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB85AEC5-91BF-47FA-8918-CADFE504F407}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42876AAB-8B10-4DE4-AFB4-CC9346151F88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42876AAB-8B10-4DE4-AFB4-CC9346151F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42876AAB-8B10-4DE4-AFB4-CC9346151F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42876AAB-8B10-4DE4-AFB4-CC9346151F88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
