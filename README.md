@@ -25,7 +25,7 @@ choosing _Extract Local Variable_ and supplying the variable name "nextLine" yie
 
 ## Extract Local Constant
 Given that a literal expression is selected, replace the expression with a constant (prompting for its name) and declare the constant after the closest field declaration.
-For example selecting '\n' in code below
+For example selecting '\\n' in the code below
 
     class CodeNavigator
     {
@@ -45,7 +45,7 @@ For example selecting '\n' in code below
                 char ch = snapshot[c];
 
                 // if its a new line - get the line and deal with line comments,
-                if (ch == '\n')
+                if (ch == '\\n')
                 {
 
 choosing _Extract Local Constant_ and supplying the constant name NEWLINE results in the code below
@@ -53,7 +53,7 @@ choosing _Extract Local Constant_ and supplying the constant name NEWLINE result
     class CodeNavigator
     {
         private ITextSnapshot snapshot;
-        private const char NEWLINE = '\n';
+        private const char NEWLINE = '\\n';
 
         public CodeNavigator(ITextSnapshot snapshot)
         {
@@ -71,3 +71,86 @@ choosing _Extract Local Constant_ and supplying the constant name NEWLINE result
                 // if its a new line - get the line and deal with line comments,
                 if (ch == NEWLINE)
                 {
+
+## Assign Parameter to Field
+Given a parameter to a constructor or other method, declares a field of the same name in the class and assigns the parameter to the field in the method.
+
+For example in the code below, choosing _Assign Parameter to Field_ on the stream parameter
+
+    public class Timer : IDisposable
+    {
+        string logMessage;
+        Stopwatch timer;
+
+        public Timer(String logMessage, TextWriter stream = null)
+        {
+            if (stream == null)
+            {
+                stream = Console.Out;
+            }
+            this.logMessage = logMessage;
+            timer = new Stopwatch();
+            timer.Start();
+        }
+
+will ammend to code to the following
+
+    public class Timer : IDisposable
+    {
+        string logMessage;
+        Stopwatch timer;
+        private TextWriter stream;
+
+        public Timer(String logMessage, TextWriter stream = null)
+        {
+            if (stream == null)
+            {
+                stream = Console.Out;
+            }
+            this.logMessage = logMessage;
+            timer = new Stopwatch();
+            timer.Start();
+            this.stream = stream;
+        }
+
+## Convert Variable to Field
+Given a variable declaration in a method, declares a field of the same name, removes the local declaration but retains any assignment.
+
+For example in the code below, clicking on the "pairs" variable and choosing _Convert Variable to Field_
+
+    class CodeNavigator
+    {
+        private ITextSnapshot snapshot;
+
+        public CodeNavigator(ITextSnapshot snapshot)
+        {
+            this.snapshot = snapshot;
+        }
+
+        public IEnumerable<int> UpFrom(int p)
+        {
+            Stack<PairedChar> pairs = new Stack<PairedChar>();
+
+will result in the modified code below.
+
+    class CodeNavigator
+    {
+        private ITextSnapshot snapshot;
+        private Stack<PairedChar> pairs;
+
+        public CodeNavigator(ITextSnapshot snapshot)
+        {
+            this.snapshot = snapshot;
+        }
+
+        public IEnumerable<int> UpFrom(int p)
+        {
+            pairs = new Stack<PairedChar>();
+
+# Local Refactor Tests
+There is a unit testing project included in the source code, although I found that unit testing the CodeManipulator was tricky to do in the way that I wanted. 
+I ended up writing a stub implementation of the VisualStudio ITextBuffer, based around simple strings that was a bit more involved than I had wanted but which seems to do the job.
+Not all the methods are implemented (just the ones I was using) but it might be useful for another extension writer.
+
+#Acknowledgements
+The project that helped me the most was Noah Richards' [Align Assignments](http://visualstudiogallery.msdn.microsoft.com/0cc34d69-c6f1-41e3-ac6e-5de071b3edc8). Thanks!
