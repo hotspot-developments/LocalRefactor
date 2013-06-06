@@ -10,7 +10,7 @@
 - Convert a local method variable to a field
 - Assign a method parameter to a new local field</Description>
     <Locale>1033</Locale>
-    <Icon>LocalRefactorIcon.png</Icon>
+    <License>License.txt</License>
     <PreviewImage>PreviewImage2.png</PreviewImage>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
