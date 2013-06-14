@@ -159,6 +159,24 @@ namespace HotspotDevelopments.LocalRefactor
         }
 
         [TestMethod]
+        public void ShouldExtractBooleanConstantFromIfConditionAndInsertConstantOnLastLineOfClassDeclarations()
+        {
+            StringTextBuffer testBuffer = new StringTextBuffer(ExpressionInContext("if (y == true) int x = a - b + c * d / e % 3444;"));
+
+            mockView.Setup(m => m.TextBuffer).Returns(testBuffer);
+            mockView.Setup(m => m.Selection).Returns(testBuffer.Select("true"));
+            mockNameProvider.Setup(m => m.GetConstantName()).Returns("constant");
+
+            manipulator.ExtractConstant();
+
+            Console.Out.Write(testBuffer.CurrentSnapshot.GetText());
+
+
+            Assert.AreEqual("        private const bool constant = true;", testBuffer.CurrentSnapshot.Lines.ElementAt(5).GetText());
+            Assert.AreEqual("            if (y == constant) int x = a - b + c * d / e % 3444;", testBuffer.CurrentSnapshot.Lines.ElementAt(9).GetText());
+        }
+
+        [TestMethod]
         public void ShouldExtractConstantFromInsideIfStatementAndInsertConstantOnLastLineOfClassDeclarations()
         {
             StringTextBuffer testBuffer = new StringTextBuffer(ExpressionInContext("if (y < 219) \n{\n                int x = a - b + c * d / e % 3444;\n            }"));

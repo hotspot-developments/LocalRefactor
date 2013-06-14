@@ -16,6 +16,7 @@ namespace HotspotDevelopments.LocalRefactor
         private static readonly char[] operatorChars = new char[] { ':', '+', '-', '*', '/', '%', '&', '|', '!', '~', '<', '>', '=', '^', '?' };
         private static readonly char[] permissableFollowing = operatorChars.Concat(new char[] { '.', ')', ',', ';', '}',']' }).ToArray();
         private static readonly char[] permissablePreceding = operatorChars.Concat(new char[] { '(', ',', '[', '{' }).ToArray();
+        private static readonly string[] ConstantKeyWords = new string[] { "true", "false" };
         private int tabSize = -1;
 
         public CodeManipulator(IWpfTextView view, INameProvider provider)
@@ -305,6 +306,10 @@ namespace HotspotDevelopments.LocalRefactor
             {
                 return "double";
             }
+            else if (selection == "true" || selection == "false")
+            {
+                return "bool";
+            }
             return "int";
         }
 
@@ -356,6 +361,7 @@ namespace HotspotDevelopments.LocalRefactor
 
         private bool hasConstantIntegrity(string selection)
         {
+            if (ConstantKeyWords.Contains(selection.Trim())) return true;
             Stack<PairedChar> pairs = new Stack<PairedChar>();
             char lastNonWhitespaceChar = '\0';
             foreach (char ch in selection)
